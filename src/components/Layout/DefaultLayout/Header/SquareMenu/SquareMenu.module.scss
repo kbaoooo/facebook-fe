@@ -1,0 +1,53 @@
+.icon {
+    height: var(--header-height);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 8px;
+
+    &:first-child {
+        margin-left: 0;
+    }
+
+    &:hover .icon-content {
+        background-color: var(--background-color);
+    }
+
+    .icon-link {
+        color: #65676b;
+        width: 111.6px;
+        max-width: 111.6px;
+        height: var(--header-height);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+
+        &.active .icon-content {
+            color: var(--primary-color);
+        }
+
+        &.active {
+            &::before {
+                content: '';
+                width: 100%;
+                height: 3px;
+                background-color: var(--primary-color);
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+            }
+        }
+
+        .icon-content {
+            border-radius: 10px;
+            transition: 0.25s linear;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: inherit;
+            height: 48px;
+        }
+    }
+}

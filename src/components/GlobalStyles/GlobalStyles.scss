@@ -2,7 +2,31 @@
 
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 html {
+    //color
+    --primary-color: #0866ff;
+    --background-color: #f0f2f5;
+
+    //width, height
+    --header-height: 56px;
+}
+
+body {
+    .tippy-box {
+        padding: 1px 2px;
+        border-radius: 8px;
+        background-color: rgba(0, 0, 0, 0.616);
+
+        .tippy-arrow {
+            display: none;
+        }
+    }
+}
+
+.xe3v8dz {
+    fill: #ffffff !important;
 }
