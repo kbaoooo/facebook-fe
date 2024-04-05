@@ -1,5 +1,7 @@
 .container {
     margin-top: var(--header-height);
+    display: flex;
+    justify-content: space-between;
 }
 
 .content {

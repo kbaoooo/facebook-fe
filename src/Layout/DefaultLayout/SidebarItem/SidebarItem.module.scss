@@ -1,0 +1,41 @@
+.wrapper {
+    width: inherit;
+    height: 44px;
+
+    &:hover .sidebar-link {
+        background-color: var(--secondary-button-bg);
+    }
+
+    .sidebar-link {
+        display: inline-block;
+        width: 100%;
+        height: inherit;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        display: flex;
+        align-items: center;
+        padding: 0 4px;
+
+        .avatar-img {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .avatar {
+                width: 28px;
+                height: 28px;
+                display: inline-block;
+                object-fit: cover;
+                border-radius: 50%;
+            }
+        }
+
+        .content {
+            margin-left: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            color: #000;
+        }
+    }
+}

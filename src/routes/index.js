@@ -1,6 +1,6 @@
 import Home from '~/pages/Home';
 import Authentication from '~/pages/Authentication';
-import { AuthenticationLayout, DefaultLayout } from '~/components/Layout';
+import { AuthenticationLayout, DefaultLayout } from '~/Layout';
 
 //public routes
 const publicRoutes = [

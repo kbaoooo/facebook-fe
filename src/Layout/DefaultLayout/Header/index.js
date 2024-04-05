@@ -17,19 +17,19 @@ function Header() {
             </div>
             <div className={cx('middle')}>
                 <div className={cx('icons')}>
-                    <SquareMenu content={'Trang chủ'} path='/'>
+                    <SquareMenu content={'Trang chủ'} path="/">
                         <HomeIcon />
                     </SquareMenu>
-                    <SquareMenu content={'Bạn bè'} path='/friends'>
+                    <SquareMenu content={'Bạn bè'} path="/friends">
                         <FriendsIcon />
                     </SquareMenu>
-                    <SquareMenu content={'Video'} path='/video'>
+                    <SquareMenu content={'Video'} path="/video">
                         <VideoIcon />
                     </SquareMenu>
-                    <SquareMenu content={'Marketplace'} path='/marketplace'>
+                    <SquareMenu content={'Marketplace'} path="/marketplace">
                         <MarketIcon />
                     </SquareMenu>
-                    <SquareMenu content={'Trò chơi'} path='/game'>
+                    <SquareMenu content={'Trò chơi'} path="/game">
                         <GameIcon />
                     </SquareMenu>
                 </div>
@@ -45,7 +45,7 @@ function Header() {
                     <NotiIcon />
                 </BubbleMenu>
                 <BubbleMenu type="avatar" contentTippy="Tài khoản">
-                    <img src={require('../../../../assets/imgs/avatar.jpg')} alt="avatar" className={cx('avatar')} />
+                    <img src={require('../../../assets/imgs/avatar.jpg')} alt="avatar" className={cx('avatar')} />
                 </BubbleMenu>
             </div>
         </header>
