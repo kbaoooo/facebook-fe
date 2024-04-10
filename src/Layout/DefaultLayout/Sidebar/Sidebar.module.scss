@@ -1,20 +1,21 @@
 .wrapper {
     width: 302.5px;
     position: fixed;
-    left: 0;
     top: var(--header-height);
     bottom: 0;
     background-color: var(--background-color);
 
+    &.left {
+        left: 0;
+    }
+
+    &.right {
+        right: 0;
+    }
+
     .content {
         position: relative;
         padding: 8px 0;
-
-        .menu-aside {
-            margin: 0 8px;
-            padding: 8px 0;
-            border-bottom: 1px solid#ced0d4;
-        }
     }
 }
 

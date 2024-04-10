@@ -1,0 +1,11 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    .slider {
+        width: 590px;
+        height: 282px;
+        padding: 8px 0;
+    }
+}
