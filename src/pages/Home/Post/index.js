@@ -74,9 +74,8 @@ function Post() {
                             type="text"
                             placeholder={'Bao oi, bạn đang nghĩ gì thế?'}
                             onChange={(e) => handlePostInputChange(e)}
-                        >
-                            {postInput}
-                        </textarea>
+                            value={postInput}
+                        />
                     </div>
                     <button className={cx('upload-btn')}>Đăng</button>
                 </div>

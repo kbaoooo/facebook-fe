@@ -9,6 +9,7 @@ import { CustomNextArrow, CustomPrevArrow } from './CustomArrow';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import Post from './Post';
+import NewFeed from './NewFeed';
 
 const cx = classNames.bind(styles);
 
@@ -36,6 +37,39 @@ const STORY_ITEMS = [
     {
         account: 'Hello Dev',
         src: require('../../assets/imgs/story.jpg'),
+    },
+];
+
+const NEW_FEED_ITEMS = [
+    {
+        account: 'Khanh Bao',
+        content:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        avatar: require('../../assets/imgs/avatar.jpg'),
+    },
+    {
+        account: 'Khanh Bao',
+        content:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        avatar: require('../../assets/imgs/avatar.jpg'),
+    },
+    {
+        account: 'Khanh Bao',
+        content:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        avatar: require('../../assets/imgs/avatar.jpg'),
+    },
+    {
+        account: 'Khanh Bao',
+        content:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        avatar: require('../../assets/imgs/avatar.jpg'),
+    },
+    {
+        account: 'Khanh Bao',
+        content:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        avatar: require('../../assets/imgs/avatar.jpg'),
     },
 ];
 
@@ -68,6 +102,9 @@ function Home() {
                 </Slider>
             </Story>
             <Post />
+            {NEW_FEED_ITEMS.map((item, index) => {
+                return <NewFeed key={index} data={item} />;
+            })}
         </div>
     );
 }
