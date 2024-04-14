@@ -3,7 +3,7 @@ import styles from './SquareMenu.module.scss';
 
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 

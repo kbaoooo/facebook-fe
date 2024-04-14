@@ -42,19 +42,14 @@ const STORY_ITEMS = [
     },
 ];
 
-
 function Home() {
-    const [user, setUser] = useState({});
     const [newFeedData, setNewFeedData] = useState([]);
-    
+
     const storedObj = JSON.parse(localStorage.getItem('login-status'));
-    useEffect(() => {
-        if (storedObj && storedObj.isLogin) {
-            let user = storedObj.userInfo;
-            setUser(user)
-        }
-    }, [user, storedObj]);
-    // Retrieve object from LocalStorage
+    let user;
+    if (storedObj && storedObj.isLogin) {
+        user = storedObj.userInfo;
+    }
 
     useEffect(() => {
         request.get('posts').then((res) => {
@@ -115,7 +110,7 @@ function Home() {
                       // Convert created_at and updated_at dates to "dd/mm/yyyy" format
                       const formattedCreatedAt = formatDate(createdAtStr);
                       const formattedUpdatedAt = formatDate(updatedAtStr);
-                      
+
                       item = {
                           ...item,
                           avatar: binaryString,

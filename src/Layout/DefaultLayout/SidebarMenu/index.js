@@ -16,7 +16,7 @@ function SidebarMenu({ data, title }) {
                     content={item.content || item.username}
                     icon={item.icon}
                     type={item.type}
-                    src={item.avatar}
+                    src={item.src}
                 />
             ))}
         </div>

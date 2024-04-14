@@ -11,22 +11,19 @@ import request from '~/utils/request';
 const cx = classNames.bind(styles);
 
 function DefaultLayout({ children }) {
-    const [user, setUser] = useState({});
     const [listFriends, setListFriends] = useState([]);
+    const navigate = useNavigate();
 
     const storedObj = JSON.parse(localStorage.getItem('login-status'));
-    const navigate = useNavigate();
+    let user;
+
+    if (storedObj && storedObj.isLogin) {
+        user = storedObj.userInfo;
+    }
 
     if (!storedObj || storedObj.isLogin === false) {
         navigate('/auth/login');
     }
-
-    // useEffect(() => {
-    //     if (storedObj && storedObj.isLogin) {
-    //         let user = storedObj.userInfo;
-    //         setUser(user);
-    //     }
-    // }, [user, storedObj]);
 
     const SidebarListItems = [
         {
@@ -180,29 +177,53 @@ function DefaultLayout({ children }) {
         },
     ];
 
-    // useEffect(() => {
-    //     async function fetchData() {
-    //         try {
-    //             const response = await request.get(`friends/${user.id}`);
-    //             if (response.status === 200 && response.message === 'OK') {
-    //                 if (response.data && response.data.length > 0) {
-    //                     const addTypeToFriends = [...response.data];
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                let response = await request.get(`friends/${user.id}`);
+                response = response.data;
+                if (response.status === 200 && response.message === 'OK') {
+                    if (response.data && response.data.length > 0) {
+                        const modifyListFriends = [...response.data];
 
-    //                     for (let i = 0; i < addTypeToFriends.length; i++) {
-    //                         addTypeToFriends[i].type = 'avatar';
-    //                     }
-    //                     const friends = addTypeToFriends;
-    //                     console.log(friends);
-    //                     //setListFriends(friends);
-    //                 }
-    //             }
-    //         } catch (error) {
-    //             console.log(error);
-    //         }
-    //     }
+                        for (let i = 0; i < modifyListFriends.length; i++) {
+                            // convert to avatar to string
+                            const avatarData = modifyListFriends[i].avatar.data;
+                            const binaryString = String.fromCharCode.apply(null, avatarData);
 
-    //     fetchData();
-    // }, []);
+                            // Assuming createdAtStr and updatedAtStr are your date strings in the format "yyyy-mm-ddThh:mm:ss.fffZ"
+                            const createdAtStr = modifyListFriends[i].created_at;
+                            const updatedAtStr = modifyListFriends[i].updated_at;
+
+                            // Function to convert ISO date string to "dd/mm/yyyy" format
+                            const formatDate = (isoDateString) => {
+                                const dateObject = new Date(isoDateString);
+                                const day = dateObject.getDate().toString().padStart(2, '0');
+                                const month = (dateObject.getMonth() + 1).toString().padStart(2, '0');
+                                const year = dateObject.getFullYear();
+                                return `${day}/${month}/${year}`;
+                            };
+
+                            // Convert created_at and updated_at dates to "dd/mm/yyyy" format
+                            const formattedCreatedAt = formatDate(createdAtStr);
+                            const formattedUpdatedAt = formatDate(updatedAtStr);
+                            modifyListFriends[i].type = 'avatar';
+                            modifyListFriends[i].src =`data:image/*;base64,${binaryString}`;
+                            modifyListFriends[i].created_at = formattedCreatedAt;
+                            modifyListFriends[i].updated_at = formattedUpdatedAt;
+                        }
+                        const friends = modifyListFriends;
+                        console.log(friends);
+                        setListFriends(friends);
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        fetchData();
+    }, [listFriends]);
 
     return (
         <div>
