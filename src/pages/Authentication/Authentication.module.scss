@@ -1,0 +1,182 @@
+.logo {
+    width: 211.94px;
+    height: 70px;
+
+    .fb_logo {
+        width: 100%;
+        height: 100%;
+        display: inline-block;
+    }
+}
+
+.wrapper {
+    width: 397px !important;
+    height: 353px !important;
+    padding: 10px 16px 24px 16px;
+    background-color: #fff;
+    border-radius: 7px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+    .form {
+        width: 100%;
+        height: 100%;
+
+        .login {
+            padding-bottom: 40px;
+            border-bottom: 1px solid #dadde1;
+
+            input {
+                display: block;
+                width: 100%;
+                border: 1px solid #bdbcbc;
+                padding: 14px 16px;
+                margin-top: 10px;
+                outline: 0;
+                font-size: 17px;
+                border-radius: 7px;
+
+                &::placeholder {
+                    font-size: 17px;
+                }
+
+                &:hover {
+                    border-color: #0866ff;
+                    box-shadow: 0 0 0 2px #e7f3ff;
+                    caret-color: #0866ff;
+
+                    &::placeholder {
+                        color: #7c7c7c;
+                    }
+                }
+            }
+
+            .login-btn {
+                width: 100%;
+                font-size: 18px;
+                color: #fff;
+                font-weight: 600;
+                padding: 14px 16px;
+                text-align: center;
+                margin-top: 15px;
+                border: 0;
+                outline: 0;
+                background-color: #0866ff;
+                border-radius: 7px;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: #2173f8;
+                }
+            }
+        }
+
+        .create-new-acc {
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+
+            .register-btn {
+                cursor: pointer;
+                color: #fff;
+                border-radius: 7px;
+                background-color: #42b72a;
+                height: 48px;
+                width: 173px;
+                margin: 16px;
+                line-height: 48px;
+                text-align: center;
+                font-weight: 600;
+                font-size: 17px;
+
+                &:hover {
+                    background-color: #3aa025;
+                }
+            }
+        }
+    }
+}
+
+.modal {
+    width: 432px !important;
+    height: 450px !important;
+
+    .header {
+        position: relative;
+        border-bottom: 1px solid #bdbcbc;
+        color: #606771;
+        padding: 15px;
+
+        .title {
+            color: #000;
+            font-weight: 500;
+            font-size: 30px;
+        }
+
+        .sub-title {
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .close-btn {
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            font-size: 23px;
+        }
+    }
+
+    .form-regis {
+        padding: 16px 16px 24px 16px;
+        width: 432px;
+        height: 409px;
+
+        .form {
+            width: 100%;
+            height: 100%;
+
+            input {
+                outline: 0;
+                border-radius: 5px;
+                background-color: #f5f6f7;
+                width: 100%;
+                padding: 11px;
+                border: 1px solid #ccd0d5;
+                font-size: 17px;
+                margin-bottom: 10px;
+
+                &::placeholder {
+                    font-size: 17px;
+                }
+            }
+
+            .descrip {
+                font-size: 11px;
+                padding: 10px 0;
+                color: #7c7c7c;
+
+                .highlight {
+                    color: #0866ff;
+                }
+            }
+
+            .regis-btn-submit {
+                width: 194px;
+                height: 36px;
+                margin: 0 auto;
+                font-weight: 600;
+                color: #fff;
+                border-radius: 7px;
+                cursor: pointer;
+                line-height: 36px;
+                text-align: center;
+                background-color: #42b72a;
+                margin-top: 20px;
+
+                 &:hover {
+                    background-color: #30851f;
+                 }
+            }
+        }
+    }
+}

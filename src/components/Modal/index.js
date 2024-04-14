@@ -4,19 +4,19 @@ import { Fragment } from 'react';
 
 const cx = classNames.bind(styles);
 
-function Modal({ children, hideModal, isOpen, className }) {
+function Modal({ children, hideModal, isOpen, className, onClick }) {
     return (
         <Fragment>
             {isOpen && (
                 <div
-                    className={cx('wrapper', className)}
+                    className={cx('wrapper')}
                     onClick={(e) => {
                         if (e.target === e.currentTarget) {
                             hideModal()
                         }
                     }}
                 >
-                    <div className={cx('modal')}>{children}</div>
+                    <div className={cx('modal', className)} onClick={onClick}>{children}</div>
                 </div>
             )}
         </Fragment>

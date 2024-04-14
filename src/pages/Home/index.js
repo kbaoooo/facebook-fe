@@ -10,6 +10,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import Post from './Post';
 import NewFeed from './NewFeed';
+import { useEffect, useState } from 'react';
+import * as request from '~/utils/request';
 
 const cx = classNames.bind(styles);
 
@@ -40,40 +42,29 @@ const STORY_ITEMS = [
     },
 ];
 
-const NEW_FEED_ITEMS = [
-    {
-        account: 'Khanh Bao',
-        content:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-        avatar: require('../../assets/imgs/avatar.jpg'),
-    },
-    {
-        account: 'Khanh Bao',
-        content:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-        avatar: require('../../assets/imgs/avatar.jpg'),
-    },
-    {
-        account: 'Khanh Bao',
-        content:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-        avatar: require('../../assets/imgs/avatar.jpg'),
-    },
-    {
-        account: 'Khanh Bao',
-        content:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-        avatar: require('../../assets/imgs/avatar.jpg'),
-    },
-    {
-        account: 'Khanh Bao',
-        content:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-        avatar: require('../../assets/imgs/avatar.jpg'),
-    },
-];
 
 function Home() {
+    const [user, setUser] = useState({});
+    const [newFeedData, setNewFeedData] = useState([]);
+    
+    const storedObj = JSON.parse(localStorage.getItem('login-status'));
+    useEffect(() => {
+        if (storedObj && storedObj.isLogin) {
+            let user = storedObj.userInfo;
+            setUser(user)
+        }
+    }, [user, storedObj]);
+    // Retrieve object from LocalStorage
+
+    useEffect(() => {
+        request.get('posts').then((res) => {
+            if (res.status === 200 && res.message === 'OK' && res.data) {
+                const newFeedData = res.data;
+                setNewFeedData(newFeedData);
+            }
+        });
+    }, []);
+
     const settings = {
         infinite: false,
         speed: 100,
@@ -95,16 +86,46 @@ function Home() {
         <div className={cx('wrapper')}>
             <Story>
                 <Slider {...settings} className={cx('slider')}>
-                    <Item src={require('../../assets/imgs/story_ava.jpg')} alt={'Khanh Bao'} type="create" />
+                    <Item src={`data:image/*;base64,${user.avatar}`} alt={user.username} type="create" />
                     {STORY_ITEMS.map((item, index) => (
                         <Item key={index} src={item.src} account={item.account} alt={item.account} />
                     ))}
                 </Slider>
             </Story>
             <Post />
-            {NEW_FEED_ITEMS.map((item, index) => {
-                return <NewFeed key={index} data={item} />;
-            })}
+            {newFeedData
+                ? newFeedData.map((item, index) => {
+                      // convert to avatar to string
+                      const avatarData = item.avatar.data;
+                      const binaryString = String.fromCharCode.apply(null, avatarData);
+
+                      // Assuming createdAtStr and updatedAtStr are your date strings in the format "yyyy-mm-ddThh:mm:ss.fffZ"
+                      const createdAtStr = item.created_at;
+                      const updatedAtStr = item.updated_at;
+
+                      // Function to convert ISO date string to "dd/mm/yyyy" format
+                      const formatDate = (isoDateString) => {
+                          const dateObject = new Date(isoDateString);
+                          const day = dateObject.getDate().toString().padStart(2, '0');
+                          const month = (dateObject.getMonth() + 1).toString().padStart(2, '0');
+                          const year = dateObject.getFullYear();
+                          return `${day}/${month}/${year}`;
+                      };
+
+                      // Convert created_at and updated_at dates to "dd/mm/yyyy" format
+                      const formattedCreatedAt = formatDate(createdAtStr);
+                      const formattedUpdatedAt = formatDate(updatedAtStr);
+                      
+                      item = {
+                          ...item,
+                          avatar: binaryString,
+                          created_at: formattedCreatedAt,
+                          updated_at: formattedUpdatedAt,
+                      };
+
+                      return <NewFeed key={index} data={item} />;
+                  })
+                : 'Hiện chưa có bài đăng nào.'}
         </div>
     );
 }

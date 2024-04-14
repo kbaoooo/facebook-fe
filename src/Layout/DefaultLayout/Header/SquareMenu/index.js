@@ -7,8 +7,6 @@ import { Link, NavLink } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
-console.log(styles);
-
 function SquareMenu({ children, content, path = '/' }) {
     return (
         <Tippy content={content} arrow={false} offset={[0, 2]}>

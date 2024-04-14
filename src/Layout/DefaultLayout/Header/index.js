@@ -9,6 +9,13 @@ import SquareMenu from './SquareMenu';
 const cx = classNames.bind(styles);
 
 function Header() {
+    const storedObj = JSON.parse(localStorage.getItem('login-status'));
+    let userData;
+
+    if(storedObj && storedObj.isLogin) {
+        userData = storedObj.userInfo
+    }
+
     return (
         <header className={cx('wrapper')}>
             <div className={cx('left')}>
@@ -45,7 +52,7 @@ function Header() {
                     <NotiIcon />
                 </BubbleMenu>
                 <BubbleMenu type="avatar" contentTippy="Tài khoản">
-                    <img src={require('../../../assets/imgs/avatar.jpg')} alt="avatar" className={cx('avatar')} />
+                    <img src={`data:image/*;base64,${userData.avatar}`} alt="avatar" className={cx('avatar')} />
                 </BubbleMenu>
             </div>
         </header>

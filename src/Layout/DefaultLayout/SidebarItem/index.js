@@ -9,7 +9,7 @@ function SidebarItem({ content, icon, path, type = 'icon', src, alt, classNames 
             <Link path={path} className={cx('sidebar-link', classNames)}>
                 {type === 'avatar' ? (
                     <div className={cx('avatar-img')}>
-                        <img className={cx('avatar')} src={src} alt={alt} />
+                        <img className={cx('avatar')} src={`data:image/*;base64,${src}`} alt={alt} />
                     </div>
                 ) : (
                     icon
