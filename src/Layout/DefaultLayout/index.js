@@ -223,7 +223,7 @@ function DefaultLayout({ children }) {
         }
 
         fetchData();
-    }, [listFriends]);
+    }, [user.id]);
 
     return (
         <div>
