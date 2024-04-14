@@ -13,7 +13,7 @@ function SidebarMenu({ data, title }) {
                     classNames={cx('menu-item')}
                     key={index}
                     path={item.path}
-                    content={item.content || item.username}
+                    content={item.content || item?.username}
                     icon={item.icon}
                     type={item.type}
                     src={item.src}

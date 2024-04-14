@@ -17,20 +17,22 @@ function DefaultLayout({ children }) {
     const storedObj = JSON.parse(localStorage.getItem('login-status'));
     let user;
 
-    if (storedObj && storedObj.isLogin) {
+    if (storedObj && storedObj.isLogin && storedObj.userInfo) {
         user = storedObj.userInfo;
     }
 
-    if (!storedObj || storedObj.isLogin === false) {
-        navigate('/auth/login');
-    }
+    useEffect(() => {
+        if(!storedObj || !storedObj.isLogin) {
+            navigate('/auth')
+        }
+    },[storedObj])
 
     const SidebarListItems = [
         {
-            src: `data:image/*;base64,${user.avatar}`,
+            src: `data:image/*;base64,${user?.avatar}`,
             type: 'avatar',
             path: '/profile',
-            content: user.username,
+            content: user?.username,
         },
         {
             path: '/friends',
@@ -180,7 +182,7 @@ function DefaultLayout({ children }) {
     useEffect(() => {
         async function fetchData() {
             try {
-                let response = await request.get(`friends/${user.id}`);
+                let response = await request.get(`friends/${user?.id}`);
                 response = response.data;
                 if (response.status === 200 && response.message === 'OK') {
                     if (response.data && response.data.length > 0) {
@@ -188,7 +190,7 @@ function DefaultLayout({ children }) {
 
                         for (let i = 0; i < modifyListFriends.length; i++) {
                             // convert to avatar to string
-                            const avatarData = modifyListFriends[i].avatar.data;
+                            const avatarData = modifyListFriends[i]?.avatar.data;
                             const binaryString = String.fromCharCode.apply(null, avatarData);
 
                             // Assuming createdAtStr and updatedAtStr are your date strings in the format "yyyy-mm-ddThh:mm:ss.fffZ"
@@ -208,7 +210,7 @@ function DefaultLayout({ children }) {
                             const formattedCreatedAt = formatDate(createdAtStr);
                             const formattedUpdatedAt = formatDate(updatedAtStr);
                             modifyListFriends[i].type = 'avatar';
-                            modifyListFriends[i].src =`data:image/*;base64,${binaryString}`;
+                            modifyListFriends[i].src = `data:image/*;base64,${binaryString}`;
                             modifyListFriends[i].created_at = formattedCreatedAt;
                             modifyListFriends[i].updated_at = formattedUpdatedAt;
                         }
@@ -223,7 +225,7 @@ function DefaultLayout({ children }) {
         }
 
         fetchData();
-    }, [user.id]);
+    }, [user?.id]);
 
     return (
         <div>

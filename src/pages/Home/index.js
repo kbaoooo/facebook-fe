@@ -10,8 +10,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import Post from './Post';
 import NewFeed from './NewFeed';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useLayoutEffect } from 'react';
 import * as request from '~/utils/request';
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -44,21 +45,34 @@ const STORY_ITEMS = [
 
 function Home() {
     const [newFeedData, setNewFeedData] = useState([]);
+    const navigate = useNavigate();
 
-    const storedObj = JSON.parse(localStorage.getItem('login-status'));
     let user;
-    if (storedObj && storedObj.isLogin) {
+    const storedObj = JSON.parse(localStorage.getItem('login-status'));
+    if (storedObj && storedObj.isLogin && storedObj.userInfo) {
         user = storedObj.userInfo;
     }
+
+    useLayoutEffect(() => {
+        if(!storedObj || !storedObj.isLogin) {
+            navigate('/auth')
+        }
+    },[storedObj])
 
     useEffect(() => {
         request.get('posts').then((res) => {
             if (res.status === 200 && res.message === 'OK' && res.data) {
-                const newFeedData = res.data;
-                setNewFeedData(newFeedData);
+                const data = res.data;
+                setNewFeedData(data);
             }
         });
     }, []);
+
+    const handleLikePost = (e) => {
+        console.log(e);
+        const postInfo = [...newFeedData];
+
+    }
 
     const settings = {
         infinite: false,
@@ -81,7 +95,7 @@ function Home() {
         <div className={cx('wrapper')}>
             <Story>
                 <Slider {...settings} className={cx('slider')}>
-                    <Item src={`data:image/*;base64,${user.avatar}`} alt={user.username} type="create" />
+                    <Item src={`data:image/*;base64,${user?.avatar}`} alt={user?.username} type="create" />
                     {STORY_ITEMS.map((item, index) => (
                         <Item key={index} src={item.src} account={item.account} alt={item.account} />
                     ))}
@@ -118,7 +132,7 @@ function Home() {
                           updated_at: formattedUpdatedAt,
                       };
 
-                      return <NewFeed key={index} data={item} />;
+                      return <NewFeed key={index} data={item} onLikePost={handleLikePost}/>;
                   })
                 : 'Hiện chưa có bài đăng nào.'}
         </div>

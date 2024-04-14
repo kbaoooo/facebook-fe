@@ -12,8 +12,8 @@ function Header() {
     const storedObj = JSON.parse(localStorage.getItem('login-status'));
     let userData;
 
-    if(storedObj && storedObj.isLogin) {
-        userData = storedObj.userInfo
+    if (storedObj && storedObj.isLogin && storedObj.userInfo) {
+        userData = storedObj.userInfo;
     }
 
     return (
@@ -51,8 +51,8 @@ function Header() {
                 <BubbleMenu contentTippy="Thông báo">
                     <NotiIcon />
                 </BubbleMenu>
-                <BubbleMenu type="avatar" contentTippy="Tài khoản">
-                    <img src={`data:image/*;base64,${userData.avatar}`} alt="avatar" className={cx('avatar')} />
+                <BubbleMenu type="avatar" contentTippy="Tài khoản" customizeTippy={true}>
+                    <img src={`data:image/*;base64,${userData?.avatar}`} alt="avatar" className={cx('avatar')} />
                 </BubbleMenu>
             </div>
         </header>

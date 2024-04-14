@@ -54,7 +54,7 @@ function Authentication() {
         const data = response.data;
         if (data.status === 200 && data.message === 'OK') {
             if (data.data && data.data.length > 0) {
-                const avatarData = data.data[0].avatar.data;
+                const avatarData = data.data[0]?.avatar.data;
                 const binaryString = String.fromCharCode.apply(null, avatarData);
                 // Assuming createdAtStr and updatedAtStr are your date strings in the format "yyyy-mm-ddThh:mm:ss.fffZ"
                 const createdAtStr = data.data[0].created_at;

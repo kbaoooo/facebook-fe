@@ -3,7 +3,7 @@ import styles from './NewFeed.module.scss';
 import { useState } from 'react';
 const cx = classNames.bind(styles);
 
-function NewFeed({ data }) {
+function NewFeed({ data, onLikePost }) {
     const [likePost, setLikePost] = useState(false);
 
     const handleLikePost = (e) => {
@@ -13,9 +13,9 @@ function NewFeed({ data }) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('info')}>
-                <img src={`data:image/*;base64,${data.avatar}`} alt={data.username} className={cx('avatar')} />
+                <img src={`data:image/*;base64,${data?.avatar}`} alt={data?.username} className={cx('avatar')} />
                 <div className={cx('account-time')}>
-                    <p className={cx('account')}>{data.username}</p>
+                    <p className={cx('account')}>{data?.username}</p>
                     <p className={cx('time')}>{data.created_at}</p>
                 </div>
             </div>
@@ -61,6 +61,7 @@ function NewFeed({ data }) {
                     <div className={cx('btn-wrapper')}>
                         {likePost ? (
                             <i
+                                onClick={(e) => onLikePost(e)}
                                 data-visualcompletion="css-img"
                                 className={cx('x1b0d499 xq8hly8')}
                                 style={{

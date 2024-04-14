@@ -24,23 +24,23 @@ function Post() {
         setImgFile(e.target.files[0]);
     };
 
-    const storedObj = JSON.parse(localStorage.getItem('login-status'))
+    const storedObj = JSON.parse(localStorage.getItem('login-status'));
     let userData;
-    if(storedObj && storedObj.isLogin) {
-        userData = storedObj.userInfo
+    if (storedObj && storedObj.isLogin && storedObj.userInfo) {
+        userData = storedObj.userInfo;
     }
 
     return (
         <div className={cx('wrapper')}>
             <div className={cx('post')}>
-                <img className={cx('avatar')} src={`data:image/*;base64,${userData.avatar}`} alt={userData.username} />
+                <img className={cx('avatar')} src={`data:image/*;base64,${userData?.avatar}`} alt={userData?.username} />
                 <div
                     className={cx('create-post')}
                     onClick={() => {
                         setShowModal(true);
                     }}
                 >
-                    <p className={cx('create-title')}>{userData.username} ơi, bạn đang nghĩ gì thế?</p>
+                    <p className={cx('create-title')}>{userData?.username} ơi, bạn đang nghĩ gì thế?</p>
                 </div>
             </div>
             <div className={cx('actions')}>
@@ -69,16 +69,16 @@ function Post() {
                     <div className={cx('user-info')}>
                         <img
                             className={cx('avatar')}
-                            src={`data:image/*;base64,${userData.avatar}`}
-                            alt={userData.username}
+                            src={`data:image/*;base64,${userData?.avatar}`}
+                            alt={userData?.username}
                         />
-                        <p className={cx('username')}>{userData.username}</p>
+                        <p className={cx('username')}>{userData?.username}</p>
                     </div>
                     <div className={cx('search')}>
                         <textarea
                             className={cx('search-input')}
                             type="text"
-                            placeholder={`${userData.username} oi, bạn đang nghĩ gì thế?`}
+                            placeholder={`${userData?.username} oi, bạn đang nghĩ gì thế?`}
                             onChange={(e) => handlePostInputChange(e)}
                             value={postInput}
                         />
